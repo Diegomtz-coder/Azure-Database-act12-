@@ -12,6 +12,42 @@ const dbConfig = {
     options: { encrypt: true, trustServerCertificate: false }
 };
 
+// Menu para Sucursales
+app.get('/', (req, res) => {
+    const htmlMenu = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>DSS - Selección de Sucursal</title>
+        <style>
+            body { background: black; color: white; font-family: monospace; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+            h1 { color: #44ff44; margin-bottom: 30px; }
+            .menu { display: flex; gap: 20px; }
+            .btn { 
+                padding: 15px 25px; 
+                border: 2px solid white; 
+                color: white; 
+                text-decoration: none; 
+                font-size: 1.2rem; 
+                transition: 0.3s;
+            }
+            .btn:hover { background: white; color: black; font-weight: bold; }
+        </style>
+    </head>
+    <body>
+        <h1>PANEL DE CONTROL DSS</h1>
+        <p>Selecciona una sucursal para ver la recomendacion:</p>
+        <div class="menu">
+            <a href="/dss/recomendacion?sucursal=101" class="btn">Sucursal 101</a>
+            <a href="/dss/recomendacion?sucursal=102" class="btn">Sucursal 102</a>
+            <a href="/dss/recomendacion?sucursal=103" class="btn">Sucursal 103</a>
+        </div>
+    </body>
+    </html>
+    `;
+    res.send(htmlMenu);
+});
+
 app.get('/dss/recomendacion', async (req, res) => {
     const sucursalId = req.query.sucursal || 101;
     try {
@@ -68,4 +104,4 @@ app.get('/dss/recomendacion', async (req, res) => {
     }
 });
 
-app.listen(3000, () => console.log('Servidor en puerto 3000'));
+app.listen(3000, () => console.log('Servidor listo en puerto http://localhost:3000'));
